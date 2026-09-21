@@ -12,10 +12,9 @@ import time
 
 from .calibration_store import (make_backup, read_calibration_state,
                                 read_calibration_state_fresh, restore_record_bytes,
-                                validate_backup, write_json)
+                                validate_backup, validate_restore_firmware, write_json)
 from .hid_transport import HID, select
-from .protocol import (AXES, SUPPORTED_CALIBRATION_BUILD, calibration_issues,
-                       decode_stick_touches, decode_sticks)
+from .protocol import AXES, calibration_issues, decode_stick_touches, decode_sticks
 from .gui_support import (CENTER_SECONDS, PATHS, RANGE_SECONDS, RECONNECT_SECONDS,
                           new_capture_path)
 from .i18n import tr, tr_error
@@ -74,7 +73,7 @@ class ControllerWorker(threading.Thread):
                             if self.controller_present():
                                 self.emit('error', message=tr_error(str(error)))
                             else:
-                                self.disconnect(tr('Controller disconnected. Waiting for a controller…'))
+                                self.disconnect(tr('connection.disconnected'))
                                 next_connect = time.monotonic() + RECONNECT_SECONDS
                     else:
                         # Idle time is used to maintain the live view and history plot.
@@ -87,10 +86,10 @@ class ControllerWorker(threading.Thread):
                             if sticks:
                                 self.publish_sticks(sticks)
                         elif count < 0:
-                            self.disconnect(tr('Controller disconnected. Waiting for a controller…'))
+                            self.disconnect(tr('connection.disconnected'))
                             next_connect = time.monotonic() + RECONNECT_SECONDS
         except Exception as error:
-            self.emit('error', message=tr('Backend stopped: {error}', error=error))
+            self.emit('error', message=tr('error.backend_stopped', error=error))
         finally:
             self.close_device()
 
@@ -106,7 +105,7 @@ class ControllerWorker(threading.Thread):
         time.sleep(0.25)
         info = select(self.hid.devices(), 'auto')
         if expected_serial and info['serial'] != expected_serial:
-            raise RuntimeError(tr('A different controller appeared during the operation'))
+            raise RuntimeError(tr('connection.different_controller'))
         self.info = info
         self.device = self.hid.open(info['path'])
 
@@ -114,10 +113,10 @@ class ControllerWorker(threading.Thread):
     def connection_wait_message(error):
         message = str(error)
         if message.startswith('Expected one direct USB vendor collection; found 0'):
-            return tr('No Steam Controller detected. Connect to its USB port directly. DO NOT use the wireless puck.')
+            return tr('connection.no_controller')
         if message.startswith('Expected one direct USB vendor collection; found'):
-            return tr('Connect one direct-USB Steam Controller. Retrying every 2 seconds…')
-        return tr('Controller is not ready ({message}). Retrying every 2 seconds…', message=message)
+            return tr('connection.one_controller')
+        return tr('connection.not_ready', message=message)
 
     def controller_present(self):
         try:
@@ -134,26 +133,29 @@ class ControllerWorker(threading.Thread):
         self.emit('disconnected', message=message)
 
     def connect(self):
-        """Open, identify, back up, and announce a supported USB controller."""
+        """Open, identify, back up, and announce a direct-USB controller."""
         self.close_device()
         info = select(self.hid.devices(), 'auto')
         device = self.hid.open(info['path'])
         try:
             state = read_calibration_state(self.hid, device)
-            if state['attributes'].get(4) != SUPPORTED_CALIBRATION_BUILD:
-                raise RuntimeError(tr('connected controller firmware is not supported'))
+            build = state['attributes'].get(4)
+            if not isinstance(build, int):
+                raise RuntimeError(tr('connection.unsupported_firmware'))
         except Exception:
             self.hid.s.SDL_hid_close(device)
             raise
         self.info, self.device = info, device
         self.staged = self.auto = None
-        # Every connection gets its own immutable rollback point before controls enable.
+        # Every connection gets the same local startup snapshot. Firmware support
+        # status affects write warnings later in Tk; it never changes this backup.
         backup = make_backup(info, state)
         path = new_capture_path('gui-startup-backup')
         write_json(path, backup)
         self.startup_backup = backup
         self.current_state = state
-        self.emit('connected', info=info, backup=str(path), state=state)
+        self.emit('connected', info=info, backup=str(path), state=state,
+                  firmware_build=build)
 
     def publish_sticks(self, sticks):
         # Replacing one immutable snapshot avoids sharing mutable axis dictionaries.
@@ -169,7 +171,7 @@ class ControllerWorker(threading.Thread):
         while time.monotonic() < end:
             count = self.hid.s.SDL_hid_read_timeout(self.device, buffer, len(buffer), 100)
             if count < 0:
-                raise RuntimeError(tr('Reading stick reports: {error}', error=self.hid.error()))
+                raise RuntimeError(tr('error.read_sticks', error=self.hid.error()))
             if not count:
                 continue
             sticks = decode_sticks(bytes(buffer[:count]))
@@ -188,7 +190,7 @@ class ControllerWorker(threading.Thread):
         while time.monotonic() < deadline:
             count = self.hid.s.SDL_hid_read_timeout(self.device, buffer, len(buffer), 100)
             if count < 0:
-                raise RuntimeError(tr('Reading stick-touch state: {error}', error=self.hid.error()))
+                raise RuntimeError(tr('error.read_touch', error=self.hid.error()))
             if not count:
                 continue
             report = bytes(buffer[:count])
@@ -206,7 +208,7 @@ class ControllerWorker(threading.Thread):
             if clear_reports >= stable_reports:
                 observed['clear_reports_required'] = stable_reports
                 return observed
-        raise RuntimeError(tr('Both stick-touch sensors must report released before calibration can be saved'))
+        raise RuntimeError(tr('error.touch_release_required'))
 
     def observe_stick_touches(self, seconds=0.5):
         """Record post-commit touch reports to distinguish controller and Steam latches."""
@@ -216,7 +218,7 @@ class ControllerWorker(threading.Thread):
         while time.monotonic() < end:
             count = self.hid.s.SDL_hid_read_timeout(self.device, buffer, len(buffer), 100)
             if count < 0:
-                raise RuntimeError(tr('Reading post-commit stick-touch state: {error}', error=self.hid.error()))
+                raise RuntimeError(tr('error.read_post_commit_touch', error=self.hid.error()))
             if not count:
                 continue
             report = bytes(buffer[:count])
@@ -251,16 +253,16 @@ class ControllerWorker(threading.Thread):
             # Phase 0 removes the volatile sampling callback without persisting.
             self.hid.calibration_phase(self.device, 0)
             self.auto = None
-            self.emit('status', message=tr('Automatic calibration cancelled; nothing was persisted.'))
+            self.emit('status', message=tr('status.auto_cancelled'))
 
     def stage(self, records):
         # Staging is volatile; verify its readback before enabling persistent Save.
-        self.emit('status', message=tr('Staging edited records temporarily…'))
+        self.emit('status', message=tr('status.staging'))
         for path in PATHS:
             self.hid.setting(self.device, 'stage', path, records[path])
         staged = read_calibration_state_fresh(self.hid, self.info)
         if any(staged['records'][p]['payload'] != records[p].hex() for p in PATHS):
-            raise RuntimeError(tr('Temporary record readback did not match the edits'))
+            raise RuntimeError(tr('error.temporary_readback'))
         self.staged = records
         self.current_state = staged
         self.refresh_device()
@@ -269,23 +271,30 @@ class ControllerWorker(threading.Thread):
     def commit(self):
         # Persist only the bytes that were already verified during staging.
         if not self.staged:
-            raise ValueError(tr('Apply values temporarily before saving them'))
-        self.emit('status', message=tr('Saving staged records to the controller…'))
+            raise ValueError(tr('error.stage_before_save'))
+        self.emit('status', message=tr('status.saving'))
         for path in PATHS:
             self.hid.setting(self.device, 'commit', path)
         after = read_calibration_state_fresh(self.hid, self.info)
         if any(after['records'][p]['payload'] != self.staged[p].hex() for p in PATHS):
-            raise RuntimeError(tr('Persistent record readback did not match the staged values'))
+            raise RuntimeError(tr('error.persisted_readback'))
         self.current_state, self.staged = after, None
         self.refresh_device()
         self.emit('saved', state=after)
 
-    def restore_file(self, filename):
+    def restore_file(self, request):
         # Validation binds the backup to the current serial and firmware build.
+        if isinstance(request, dict):
+            filename = request['filename']
+            allow_cross_firmware = bool(request.get('allow_cross_firmware'))
+        else:
+            filename, allow_cross_firmware = request, False
         with Path(filename).open(encoding='utf-8') as stream:
             backup = validate_backup(json.load(stream))
         if backup['device']['serial'] != self.info['serial']:
-            raise ValueError(tr('Backup belongs to another controller'))
+            raise ValueError(tr('error.other_controller_backup'))
+        current_build = self.current_state['attributes'].get(4)
+        validate_restore_firmware(backup, current_build, allow_cross_firmware)
         desired = {p: bytes.fromhex(backup['records'][p]['payload']) for p in PATHS}
         result = restore_record_bytes(self.hid, self.device, self.info, desired)
         self.current_state, self.staged = result['after'], None
@@ -295,7 +304,7 @@ class ControllerWorker(threading.Thread):
     def auto_start(self):
         """Collect center/range candidates without persisting them."""
         self.emit('status', tone='hold',
-                  message=tr('KEEP BOTH STICKS COMPLETELY UNTOUCHED — checking center for 5 seconds.'))
+                  message=tr('status.center_check'))
         before = read_calibration_state(self.hid, self.device)
         backup = make_backup(self.info, before)
         backup_path = new_capture_path('before-auto-calibration')
@@ -303,23 +312,23 @@ class ControllerWorker(threading.Thread):
         center = summarize(self.sample_sticks(CENTER_SECONDS))
         # This passive preflight catches gross drift/noise before entering firmware mode.
         if any(abs(center[a]['median']) > 5000 or center[a]['peak_to_peak'] > 3000 for a in AXES):
-            raise RuntimeError(tr('Center preflight failed; no calibration phase was sent'))
+            raise RuntimeError(tr('error.center_preflight'))
         phase_started = False
         try:
             self.emit('status', tone='hold',
-                      message=tr('KEEP BOTH STICKS COMPLETELY UNTOUCHED — collecting center for 5 seconds.'))
+                      message=tr('status.center_collect'))
             self.hid.calibration_phase(self.device, 1)
             phase_started = True
             time.sleep(CENTER_SECONDS)
             # Switch the firmware to range collection before inviting movement.
             self.hid.calibration_phase(self.device, 2)
             self.emit('status', tone='move',
-                      message=tr('ROTATE BOTH STICKS NOW — use their full circular travel for 12 seconds.'))
+                      message=tr('status.rotate'))
             ranges = summarize(self.sample_sticks(RANGE_SECONDS))
             reached = all(ranges[a]['minimum'] <= -20000 and ranges[a]['maximum'] >= 20000
                           for a in AXES)
             if not reached:
-                raise RuntimeError(tr('Full travel was not observed on every axis; nothing was persisted'))
+                raise RuntimeError(tr('error.full_travel'))
         except Exception:
             if phase_started:
                 try:
@@ -334,17 +343,17 @@ class ControllerWorker(threading.Thread):
     def auto_commit(self):
         """Persist candidates, validate geometry, and roll back unsafe results."""
         if not self.auto:
-            raise ValueError(tr('No automatic calibration is waiting to commit'))
+            raise ValueError(tr('error.no_auto_pending'))
         self.emit('status', tone='stop',
-                  message=tr('REMOVE BOTH THUMBS FROM THE STICKS — waiting for both touch sensors to release.'))
+                  message=tr('status.wait_touch_release'))
         try:
             pre_commit_touch = self.wait_for_stick_release()
         except RuntimeError:
             # A stuck touch bit can latch Steam Input's gyro activator, so abort safely.
             self.hid.calibration_phase(self.device, 0)
             self.auto = None
-            raise RuntimeError(tr('Stick touch did not release; automatic calibration was cancelled and not saved'))
-        self.emit('status', message=tr('Committing and validating automatic calibration…'))
+            raise RuntimeError(tr('error.touch_not_released'))
+        self.emit('status', message=tr('status.committing_auto'))
         self.hid.calibration_phase(self.device, 3)
         after = read_calibration_state_fresh(self.hid, self.info)
         post_commit_touch = self.observe_stick_touches()
@@ -352,7 +361,7 @@ class ControllerWorker(threading.Thread):
         # Preserve enough telemetry to distinguish controller touch state from a
         # host-side Steam Input latch if gyro activation misbehaves again.
         session = dict(kind='steam-controller-2026-gui-calibration', device=self.info,
-                       firmware_build=SUPPORTED_CALIBRATION_BUILD,
+                       firmware_build=after['attributes'].get(4),
                        immutable_backup=self.auto['backup_path'], before=self.auto['before'],
                        preflight_center=self.auto['center'], range_observation=self.auto['ranges'],
                        pre_commit_touch=pre_commit_touch,
@@ -373,8 +382,8 @@ class ControllerWorker(threading.Thread):
             self.refresh_device()
             if session['automatic_restore'].get('verified'):
                 self.emit('records', state=self.current_state)
-                raise RuntimeError(tr('Unsafe calibration was automatically rolled back'))
-            raise RuntimeError(tr('Unsafe calibration and automatic rollback failed; restore the backup'))
+                raise RuntimeError(tr('error.auto_rolled_back'))
+            raise RuntimeError(tr('error.auto_rollback_failed'))
         write_json(output, session)
         self.current_state, self.auto, self.staged = after, None, None
         self.refresh_device()

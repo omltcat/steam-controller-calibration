@@ -3,29 +3,35 @@ import math
 import tkinter as tk
 from tkinter import ttk
 
-from .i18n import tr, ui_font
+from .i18n import data_font, tr, ui_font
+from .gui_theme import Theme
 
 
 class StickView:
     """Square processed-output indicator with fixed-width numeric labels."""
 
+    MARKER_ARM = 6
+
     def __init__(self, parent, title):
         frame = ttk.LabelFrame(parent, text=title, padding=8)
-        self.canvas = tk.Canvas(frame, width=174, height=174, bg='#fafafa', highlightthickness=0)
+        self.canvas = tk.Canvas(frame, width=174, height=174,
+                                bg=Theme.CANVAS_BACKGROUND, highlightthickness=0)
         self.canvas.pack()
-        outline = '#a8a8a8'
-        self.canvas.create_rectangle(8, 8, 166, 166, outline=outline, width=2)
-        self.canvas.create_line(87, 8, 87, 166, fill='#dedede')
-        self.canvas.create_line(8, 87, 166, 87, fill='#dedede')
+        self.canvas.create_rectangle(8, 8, 166, 166, outline=Theme.STICK_BORDER, width=2)
+        self.canvas.create_line(87, 8, 87, 166, fill=Theme.STICK_GUIDE)
+        self.canvas.create_line(8, 87, 166, 87, fill=Theme.STICK_GUIDE)
         # A crosshair shows the exact X/Y position without suggesting a round
         # stick gate or obscuring the center guides.
-        self.marker_x = self.canvas.create_line(81, 87, 93, 87, fill='#1677c8', width=2)
-        self.marker_y = self.canvas.create_line(87, 81, 87, 93, fill='#1677c8', width=2)
-        self.value = ttk.Label(frame, text=tr('Output  X {x:6d}   Y {y:6d}', x=0, y=0),
-                               font=('Consolas', 9))
+        horizontal, vertical = self.marker_coordinates(87, 87)
+        self.marker_x = self.canvas.create_line(*horizontal, fill=Theme.ACCENT,
+                                                width=Theme.STICK_MARKER_WIDTH)
+        self.marker_y = self.canvas.create_line(*vertical, fill=Theme.ACCENT,
+                                                width=Theme.STICK_MARKER_WIDTH)
+        self.value = ttk.Label(frame, text=tr('stick.output', x=0, y=0),
+                               font=data_font(9))
         self.value.pack(pady=(6, 0))
-        self.raw = ttk.Label(frame, text=tr('Raw est X {raw_x:>6}   Y {raw_y:>6}',
-                                            raw_x='—', raw_y='—'), font=('Consolas', 9))
+        self.raw = ttk.Label(frame, text=tr('stick.raw_estimate',
+                                            raw_x='—', raw_y='—'), font=data_font(9))
         self.raw.pack()
         self.frame = frame
 
@@ -33,46 +39,56 @@ class StickView:
         # Leave a small inset so the marker remains inside the square at full scale.
         px = 87 + max(-1, min(1, x / 32767)) * 71
         py = 87 - max(-1, min(1, y / 32767)) * 71
-        self.canvas.coords(self.marker_x, px - 6, py, px + 6, py)
-        self.canvas.coords(self.marker_y, px, py - 6, px, py + 6)
-        self.value.configure(text=tr('Output  X {x:6d}   Y {y:6d}', x=x, y=y))
-        self.raw.configure(text=tr('Raw est X {raw_x:>6}   Y {raw_y:>6}',
+        horizontal, vertical = self.marker_coordinates(px, py)
+        self.canvas.coords(self.marker_x, *horizontal)
+        self.canvas.coords(self.marker_y, *vertical)
+        self.value.configure(text=tr('stick.output', x=x, y=y))
+        self.raw.configure(text=tr('stick.raw_estimate',
                                    raw_x=raw_x, raw_y=raw_y))
+
+    @classmethod
+    def marker_coordinates(cls, x, y):
+        """Center odd strokes on pixels and even strokes between two pixels."""
+        fix = 0 if Theme.STICK_MARKER_WIDTH % 2 == 0 else 1
+        return ((x - cls.MARKER_ARM, y,
+                 x + cls.MARKER_ARM + fix, y),
+                (x, y - cls.MARKER_ARM,
+                 x, y + cls.MARKER_ARM + fix))
 
 
 class HistoryPlot:
     """Five-second axis history with linear and signed-log display modes."""
 
     WINDOW_SECONDS = 5.0
-    AXIS_OPTIONS = {'Left X': 'left_x', 'Left Y': 'left_y',
-                    'Right X': 'right_x', 'Right Y': 'right_y'}
+    AXIS_OPTIONS = {'axis.left_x': 'left_x', 'axis.left_y': 'left_y',
+                    'axis.right_x': 'right_x', 'axis.right_y': 'right_y'}
 
     def __init__(self, parent):
         self.axis_key = 'left_x'
-        self.scale = 'Logarithmic'
-        frame = ttk.LabelFrame(parent, text=tr('Recent output samples - 5 seconds'), padding=8)
+        self.scale = 'plot.logarithmic'
+        frame = ttk.LabelFrame(parent, text=tr('plot.title'), padding=8)
         controls = ttk.Frame(frame)
         controls.pack(fill='x', pady=(0, 5))
-        ttk.Label(controls, text=tr('Axis:')).pack(side='left')
+        ttk.Label(controls, text=tr('plot.axis')).pack(side='left')
         self.axis_buttons = {}
-        for label, key in self.AXIS_OPTIONS.items():
-            button = ttk.Button(controls, text=tr(label), width=7, takefocus=False,
+        for label_key, key in self.AXIS_OPTIONS.items():
+            button = ttk.Button(controls, text=tr(label_key), width=7, takefocus=False,
                                 command=lambda value=key: self.select_axis(value))
             button.pack(side='left', padx=(4, 0))
             self.axis_buttons[key] = button
-        ttk.Label(controls, text=tr('Scale:')).pack(side='left')
+        ttk.Label(controls, text=tr('plot.scale')).pack(side='left')
         self.scale_buttons = {}
-        for label in ('Logarithmic', 'Linear'):
-            button = ttk.Button(controls, text=tr(label), width=11, takefocus=False,
-                                command=lambda value=label: self.select_scale(value))
+        for key in ('plot.logarithmic', 'plot.linear'):
+            button = ttk.Button(controls, text=tr(key), width=11, takefocus=False,
+                                command=lambda value=key: self.select_scale(value))
             button.pack(side='left', padx=(4, 0))
-            self.scale_buttons[label] = button
-        self.summary = ttk.Label(controls, text='', font=('Consolas', 9))
+            self.scale_buttons[key] = button
+        self.summary = ttk.Label(controls, text='', font=data_font(9))
         self.summary.pack(side='right')
-        ttk.Label(frame, text=tr('A good calibration should oscillate roughly symmetrically near zero.'),
-                  foreground='#666666').pack(anchor='w', pady=(0, 4))
-        self.canvas = tk.Canvas(frame, height=145, bg='#fafafa', highlightthickness=1,
-                                highlightbackground='#c8c8c8')
+        ttk.Label(frame, text=tr('plot.guidance'),
+                  foreground=Theme.MUTED_TEXT).pack(anchor='w', pady=(0, 4))
+        self.canvas = tk.Canvas(frame, height=145, bg=Theme.CANVAS_BACKGROUND, highlightthickness=1,
+                                highlightbackground=Theme.PLOT_BORDER)
         self.canvas.pack(fill='x')
         self.frame = frame
         self.update_buttons()
@@ -93,7 +109,7 @@ class HistoryPlot:
 
     def transform(self, value):
         """Map signed controller output into the plot's normalized vertical range."""
-        if self.scale == 'Linear':
+        if self.scale == 'plot.linear':
             return value / 32768.0
         # log1p keeps zero defined while expanding small center oscillations.
         return math.copysign(math.log1p(abs(value)) / math.log1p(32768), value)
@@ -107,39 +123,32 @@ class HistoryPlot:
         canvas.delete('all')
         width = max(canvas.winfo_width(), 300)
         height = max(canvas.winfo_height(), 120)
-        left, right, top, bottom = 42, width - 8, 8, height - 18
-        canvas.create_rectangle(left, top, right, bottom, outline='#d0d0d0')
+        left, right, top, bottom = 42, width - 8, 8, height - 8
+        canvas.create_rectangle(left, top, right, bottom, outline=Theme.PLOT_FRAME)
         canvas.create_line(left, (top + bottom) / 2, right, (top + bottom) / 2,
-                           fill='#a8a8a8', dash=(3, 3))
+                           fill=Theme.PLOT_ZERO_LINE, dash=(3, 3))
         grid_values = (-32768, -10000, -1000, -100, 0, 100, 1000, 10000, 32767)
-        if self.scale == 'Linear':
+        if self.scale == 'plot.linear':
             grid_values = (-32768, -16384, 0, 16384, 32767)
         for value in grid_values:
             normalized = self.transform(value)
             y = (top + bottom) / 2 - normalized * (bottom - top) / 2
-            canvas.create_line(left, y, right, y, fill='#ececec')
+            canvas.create_line(left, y, right, y, fill=Theme.PLOT_GRID)
             canvas.create_text(left - 5, y, text=str(value), anchor='e',
-                               fill='#666666', font=('Consolas', 7))
-        canvas.create_text(left, bottom + 10, text=tr('−5 s'), anchor='w',
-                           fill='#666666', font=ui_font(7))
-        canvas.create_text(right, bottom + 10, text=tr('now'), anchor='e',
-                           fill='#666666', font=ui_font(7))
-        # Timestamps, rather than sample indexes, keep spacing honest during pauses.
+                               fill=Theme.MUTED_TEXT, font=data_font(7))
         points = []
         for stamp, value in samples:
             x = left + ((stamp - (now - self.WINDOW_SECONDS)) / self.WINDOW_SECONDS) * (right - left)
             y = (top + bottom) / 2 - self.transform(value) * (bottom - top) / 2
             points.extend((x, y))
         if len(points) >= 4:
-            canvas.create_line(*points, fill='#1677c8', width=2)
+            canvas.create_line(*points, fill=Theme.ACCENT, width=2)
         elif len(points) == 2:
             x, y = points
-            canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill='#1677c8', outline='')
+            canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill=Theme.ACCENT, outline='')
         if samples:
             values = [value for _, value in samples]
-            self.summary.configure(text=tr('now {now:6d}   min {minimum:6d}   max {maximum:6d}',
+            self.summary.configure(text=tr('plot.summary',
                                            now=values[-1], minimum=min(values), maximum=max(values)))
         else:
-            self.summary.configure(text=tr('waiting for samples'))
-
-
+            self.summary.configure(text=tr('plot.waiting'))

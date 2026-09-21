@@ -26,10 +26,6 @@ PATHS = ('cal/joy_l', 'cal/joy_r')
 CENTER_SECONDS = 5.0
 RANGE_SECONDS = 12.0
 RECONNECT_SECONDS = 2.0
-ROWS = (('Left X', 'cal/joy_l', 'x'), ('Left Y', 'cal/joy_l', 'y'),
-        ('Right X', 'cal/joy_r', 'x'), ('Right Y', 'cal/joy_r', 'y'))
-
-
 def new_capture_path(label):
     """Return a millisecond-stamped path that will not overwrite an earlier session."""
     # One-file builds start without a project directory beside the executable;

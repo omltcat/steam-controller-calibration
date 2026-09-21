@@ -2,7 +2,8 @@
 import struct
 
 AXES = ('left_x', 'left_y', 'right_x', 'right_y')
-# Writes are intentionally locked to the one firmware image analyzed in research/.
+# CLI automatic calibration remains locked to the hardware-tested build. The GUI
+# uses firmware_support.py for reviewed and explicitly accepted unknown builds.
 SUPPORTED_CALIBRATION_BUILD = 0x6A628345
 # On-device order: record type, then min/max/center band for X and Y.
 STICK_FIELDS = ('type', 'x_min', 'x_max', 'x_center_min', 'x_center_max',

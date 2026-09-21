@@ -101,8 +101,6 @@ def backup_controller(hid, device, info, output):
     if info['pid'] != 0x1302 or info['bus'] != 1 or info['usage_page'] < 0xFF00:
         raise ValueError('Backup requires a direct USB 28DE:1302 vendor HID collection')
     state = read_calibration_state(hid, device)
-    if state['attributes'].get(4) != SUPPORTED_CALIBRATION_BUILD:
-        raise ValueError('The connected firmware build is not supported for restoration')
     backup = make_backup(info, state)
     write_json(output, backup)
     print(json.dumps(dict(output=output, serial=info['serial'],

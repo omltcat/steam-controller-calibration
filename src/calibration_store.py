@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 
 from .hid_transport import select
-from .protocol import SUPPORTED_CALIBRATION_BUILD, decode_attributes, decode_calibration
+from .protocol import calibration_issues, decode_attributes, decode_calibration
 
 BACKUP_SCHEMA = 'steam-controller-2026-stick-backup-v1'
 RECORD_PATHS = ('cal/joy_l', 'cal/joy_r')
@@ -102,12 +102,13 @@ def make_backup(info, state):
 
 
 def validate_backup(value):
-    """Reject edited, malformed, cross-device, or unsupported backup files."""
+    """Reject edited or malformed backups without imposing a firmware allowlist."""
     if value.get('schema') != BACKUP_SCHEMA:
         raise ValueError('File is not a supported immutable stick backup')
     device = value.get('device', {})
     serial, build, records = device.get('serial'), value.get('firmware_build'), value.get('records', {})
-    if not isinstance(serial, str) or not serial or build != SUPPORTED_CALIBRATION_BUILD:
+    if (not isinstance(serial, str) or not serial or not isinstance(build, int)
+            or isinstance(build, bool) or not 0 <= build <= 0xFFFFFFFF):
         raise ValueError('Backup identity or firmware build is unsupported')
     for path in RECORD_PATHS:
         try:
@@ -121,6 +122,28 @@ def validate_backup(value):
     if not hmac.compare_digest(value.get('fingerprint_sha256', ''), expected):
         raise ValueError('Backup fingerprint does not match its device identity and records')
     return value
+
+
+def backup_calibration_issues(backup):
+    """Return strict geometry issues used before a cross-firmware restore."""
+    issues = []
+    for path in RECORD_PATHS:
+        record = decode_calibration(bytes.fromhex(backup['records'][path]['payload']))
+        issues.extend(f'{path}: {issue}' for issue in calibration_issues(record))
+    return issues
+
+
+def validate_restore_firmware(backup, current_build, allow_cross_firmware=False):
+    """Require explicit consent and strict geometry for cross-firmware restore."""
+    if backup['firmware_build'] == current_build:
+        return False
+    if not allow_cross_firmware:
+        raise ValueError('Cross-firmware restore requires explicit confirmation')
+    issues = backup_calibration_issues(backup)
+    if issues:
+        raise ValueError('Cross-firmware backup failed strict calibration checks:\n' +
+                         '\n'.join(issues))
+    return True
 
 
 
