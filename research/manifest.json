@@ -1,0 +1,749 @@
+{
+  "fetched_at": "2026-09-19T06:08:27.398049+00:00",
+  "files": [
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/README.md",
+      "sha256": "ab1462c460ffd916223aed8c14548cf7508d9216e0394c88b8ed868c387c8465",
+      "bytes": 5979
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/README.md",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/README.md",
+      "sha256": "b7b4506f2684655989a880cd89002b48f3c9292ccb51e1386407929258d0351b",
+      "bytes": 6115
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/drivers/gpio/gpio_greenpak.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/drivers/gpio/gpio_greenpak.c",
+      "sha256": "74a352af449dd939f2f6829fdc65efcb9784d06c33977a14fcf40e6bc37644d8",
+      "bytes": 7230
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/analog.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/analog.c",
+      "sha256": "f142cd72aaa03504eee57ff2c5762c200b87676d51884a0a8082e6780afb0827",
+      "bytes": 13155
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/analog.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/analog.h",
+      "sha256": "2a09f6b6ed41433ba775d2dafa331b6d4d7d8e80518f2f07d9fd6984f0b4dcef",
+      "bytes": 336
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/battery.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/battery.c",
+      "sha256": "91a0dc92a489fe738bfeba66ef188a980f9462c71b399b8d2b5eb281d54d77e4",
+      "bytes": 28958
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/battery.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/battery.h",
+      "sha256": "93f18c3d8d809895e4cadf41fd7011fb824a680b8115f5c69cfe429d94a51b36",
+      "bytes": 355
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/calibration.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/calibration.c",
+      "sha256": "b0f594754cbfb727731f5ecb4cad372b4a02495977b01deb1010bbe7ad1e164c",
+      "bytes": 22033
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/calibration.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/calibration.h",
+      "sha256": "9ac13c4ff10712e7ba64a62d0d421e0fe59f8174169312dbcac0fbb380fa83ce",
+      "bytes": 2268
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/charge_mode.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/charge_mode.c",
+      "sha256": "ff3fe07c8edbef07fdf01f81b6383a5e4d2753f5713e700ad6b9a9e9fd6d4c66",
+      "bytes": 7053
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/charge_mode.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/charge_mode.h",
+      "sha256": "c3f99d360008d941eab3f0b38d23207f3cc88ae31dde7f62cf38814bd5432dd4",
+      "bytes": 231
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/controller.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/controller.h",
+      "sha256": "337c821f6dcd54102c3ec15aeaf98990c2d4ad6971849327831b472f5a8fd9cb",
+      "bytes": 6281
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/esb_backend.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/esb_backend.h",
+      "sha256": "32ea534b80654e413e71440c756bd30bac4d62b165d4b61b61358d29f9f4a8d9",
+      "bytes": 2476
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/esb_backend_direct.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/esb_backend_direct.c",
+      "sha256": "efcb8c2ab63e2ff1374944d4393c11346b3ca30927555eaba35a1d4a51e77ea9",
+      "bytes": 14204
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/haptics.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/haptics.c",
+      "sha256": "c379ba352b65a7030454b035b4f5b2df54f203d2f7b7140e16642d4856582395",
+      "bytes": 48067
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/haptics.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/haptics.h",
+      "sha256": "9fc794a87ba12fbc18b3ba80931af787d6d9f6db3ed37fe2b743b6c537464d27",
+      "bytes": 2917
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/haptics_pwm_ibex.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/haptics_pwm_ibex.c",
+      "sha256": "136ebb2a5d7c642a0604f09690d1220207526b58aed8bc5dd2e1fc4b9cddebd9",
+      "bytes": 59905
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/haptics_pwm_nrf.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/haptics_pwm_nrf.c",
+      "sha256": "58e9fead04c68114ee8f6a783c74b40e3da67dbb6b37b7aaafaeb65ca3d7f5c1",
+      "bytes": 999
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/hardware.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/hardware.c",
+      "sha256": "0eddccea422743126e489444eef66af41c4d5c3e0bbc40e14e0867b2b63cb5af",
+      "bytes": 5614
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/ibex_settings_registry.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/ibex_settings_registry.c",
+      "sha256": "78eab6ad80badca54d3f27dfcba7fe44499e30c981d5fcc7084b9b2f215205a2",
+      "bytes": 15467
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/ibex_settings_registry.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/ibex_settings_registry.h",
+      "sha256": "012f3e7b66a29e1359fe0008ce701dde01708ac381c1bd18eab9293faee033c6",
+      "bytes": 2124
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/imu.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/imu.c",
+      "sha256": "75f0579cdf9b4461270b21e0863290b7f2fc9fc74090530642761e514b1bd44e",
+      "bytes": 26298
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/imu.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/imu.h",
+      "sha256": "8d9c6eb063a04913a4235aba460475b46fefc29c165b1cfe51af4860df9312d8",
+      "bytes": 508
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/imu_bias.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/imu_bias.h",
+      "sha256": "a2fbfd65b49af64fa545319cbe184c5d70a36b01e6cb38330baf3a4441612e62",
+      "bytes": 507
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/lizard.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/lizard.c",
+      "sha256": "b292fb61cb79ea8b7d17d9f87dc5bc7b66e0b68247a626255738fd09495e73bb",
+      "bytes": 13899
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/lizard.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/lizard.h",
+      "sha256": "9ef76941f87e4a77277580b13e5876a60e352a5205bba3a02f3436e689a789ab",
+      "bytes": 298
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/main.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/main.c",
+      "sha256": "3dbd8b1b5d49e87a7af3f77141522f3b98cb8b5fa750047b41fe0a687914c72d",
+      "bytes": 7112
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/olympus.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/olympus.c",
+      "sha256": "fce4d483362e9a06fedc217b3f7be7f1473df0c50c932ff6825308139c3bd144",
+      "bytes": 29759
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/olympus.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/olympus.h",
+      "sha256": "59e31e5044ac69587f110d3fd55010d1b6bbfe2b0f90b4ac2cdfaa4eafeada67",
+      "bytes": 835
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/olympus_config.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/olympus_config.h",
+      "sha256": "1d2a56da58c24dcd9248ff8a6fd73fdbda048ae821431e06e259528cf98325dd",
+      "bytes": 15999
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/power.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/power.c",
+      "sha256": "6bde1c294d035e99022a43d0ef53e24fc89f6097e41adb80a9b3dd96520a7466",
+      "bytes": 6053
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/power.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/power.h",
+      "sha256": "808b9a5b0592910e84b08553e3eebe44cc7931e05e8eb7ca4c159a9093003fd5",
+      "bytes": 364
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/puck_interface.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/puck_interface.c",
+      "sha256": "74623489e5a3fd99e3d676a1c1874f02f3f08d1e731f213fa1c5ecddde8b27a8",
+      "bytes": 8971
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/puck_interface.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/puck_interface.h",
+      "sha256": "8519606270474b197a97f64ea1ddbf3dc65876b730803acca67500598abdfab9",
+      "bytes": 151
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/radio_personality.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/radio_personality.c",
+      "sha256": "7c8d05a41b6b133c97c5c8a3a5d3e8b217cc76b20c494de794448b3a4cb3d134",
+      "bytes": 4400
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/rgbw_led.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/rgbw_led.c",
+      "sha256": "840e09e83cda51b5c7a034241eda62e4e9437ed9841ac7c11debe4e162a18673",
+      "bytes": 1790
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/rgbw_led.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/rgbw_led.h",
+      "sha256": "b5109acfb4839f320f309c06931dc0233aaa85fecd6db9ff24d33cf3d31e8d87",
+      "bytes": 867
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/sdl/CREDITS.md",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/sdl/CREDITS.md",
+      "sha256": "c5248b999637cb272b9832fe004ee55c43c52c0d5ce7119a83ffd4f8bfb18994",
+      "bytes": 2169
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/sdl/controller_constants.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/sdl/controller_constants.h",
+      "sha256": "dbf4f7c0b1bc0dc4371eb3d527fbd244e1327b56267ac16f47550abc8d213d17",
+      "bytes": 17223
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/sdl/controller_structs.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/sdl/controller_structs.h",
+      "sha256": "928c99a3eb4ac70b1e21328bd86d01795fc90a9a88effb4c4231acbfdaa5ef64",
+      "bytes": 16390
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/sdl/types.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/sdl/types.h",
+      "sha256": "d6a1f7c02b29b78c811e7529251cf0316955b2bc1eca2148dbd9b6939b056439",
+      "bytes": 131
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/shell.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/shell.c",
+      "sha256": "e12b309568a69f263356226aca56d42ddaebad759c9d1d09500fcc8e37022a78",
+      "bytes": 24878
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/transport.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/transport.c",
+      "sha256": "d94a02a3b09e033bf48a69b45bc6145f9be51f929142a66b0911df21edbcbeba",
+      "bytes": 10018
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/transport_ble.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/transport_ble.c",
+      "sha256": "e65c0f52cb33b3bac246ea52f27ec8b8378c1ffd1c128c5bb692ab0816211667",
+      "bytes": 38804
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/transport_esb.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/transport_esb.c",
+      "sha256": "da06cfd493239b07aad486cd621d8f748e9ca02531255a5a0f9f9c2dbcdbc46c",
+      "bytes": 40275
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/transport_usb.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/transport_usb.c",
+      "sha256": "308717deeb6afb9da1e5e27c9247031117e668e4fbcb2980a7970105a1abfb77",
+      "bytes": 15029
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/triton_state_report.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/triton_state_report.h",
+      "sha256": "09845234386106365182f2887749d15848a02d3d1f143fde7e84a47f89ca80a4",
+      "bytes": 3590
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_feature.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_feature.c",
+      "sha256": "37947b98a7b04a6c18f492f9459bac883e8a6cdc341b14ac506611c38802c2d6",
+      "bytes": 18801
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_feature.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_feature.h",
+      "sha256": "eb30c4fe5521378d4bfcde42c787dc506d7bc9ae28fa2a2876a86276f45628c2",
+      "bytes": 4465
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_hid_report_map.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_hid_report_map.c",
+      "sha256": "4dd2d6fa2f9dd192103e9af810840a48c8d39668bf009fa116a3819d75b4dc65",
+      "bytes": 2789
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_hid_report_map.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_hid_report_map.h",
+      "sha256": "a67705ad6a4d5b77df23bf43c10e8d3a9d8068bdbb8d8345818c3a0da7a5ace0",
+      "bytes": 328
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_identity.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_identity.c",
+      "sha256": "9600bde92de31119beabbae3c20a6e1b74c656d8ebd2e5d2268237d8145bce04",
+      "bytes": 2972
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_identity.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_identity.h",
+      "sha256": "e057ab1b46bf4658308db1e52b48ef74fbc45c0bd78ba16890427e33d4a63d3d",
+      "bytes": 594
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_nvs.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_nvs.c",
+      "sha256": "bd104aeb08d467dd6477074844f47e7835469e919799b0d2bb7d46cc55e52058",
+      "bytes": 13781
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_nvs.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_nvs.h",
+      "sha256": "fa2b08e712c244fe85853a12bbf077fad608332779d6cff9475d76c74b547c5a",
+      "bytes": 1226
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_settings.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_settings.c",
+      "sha256": "90895d1d1d11cbbcfe768ac92c25ccf6335e02b4a363fb15ba1b30c5a5f09a53",
+      "bytes": 18249
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/valve_settings.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/valve_settings.h",
+      "sha256": "a39461dacfdd33676d93b3412046997df5206ddb863be9ae8bb6c0308aa3c1f0",
+      "bytes": 803
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/src/watchdog.h",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/src/watchdog.h",
+      "sha256": "6b4af8b03f4756a89f210ba1a5c3f0500b84356b47857eefd09b2d92e4a5c32a",
+      "bytes": 320
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/tests/fixtures/README.md",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/tests/fixtures/README.md",
+      "sha256": "677673fd592bdbbe29bf966e242e177039c1a4373692b5654a664d1335955f9f",
+      "bytes": 750
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/tests/haptics_stereo/src/main.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/tests/haptics_stereo/src/main.c",
+      "sha256": "cc8a9a24d0fe725e53d7982736334f5d7dbefcdf51ba92ddeb4978d8b265df47",
+      "bytes": 3697
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "app/tests/valve_nvs.c",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/app/tests/valve_nvs.c",
+      "sha256": "bef34397d4f4d763a01428fbf180f744bd96ed90e9a0e91b212e667037387fca",
+      "bytes": 19514
+    },
+    {
+      "repository": "mwdmwd/sc26re",
+      "revision": "145ff5ed70e9f343002ee2793083fd0b1af752e0",
+      "path": "zephyr/README.md",
+      "url": "https://raw.githubusercontent.com/mwdmwd/sc26re/145ff5ed70e9f343002ee2793083fd0b1af752e0/zephyr/README.md",
+      "sha256": "f8e65bf6da64da04e2db612cf8b385f6895d457266f02099e1ff10a5175430b6",
+      "bytes": 769
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/LICENSE",
+      "sha256": "25ca95bf482156a37d2621ce84bce98c3320a5cc99f6f2e7be9dd816f2d478ef",
+      "bytes": 1082
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/README.md",
+      "sha256": "8a6948e26326186a776579a11a0ba100c7ac909469efee24b16112334ff5d329",
+      "bytes": 10086
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/CHANGELOG.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/CHANGELOG.md",
+      "sha256": "ed64259295a00ce0bb600aa557b9fbd18d594839163c8d9de723a6263bf1d3ff",
+      "bytes": 10094
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/CONTROLLER_CAPABILITIES.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/CONTROLLER_CAPABILITIES.md",
+      "sha256": "d0c8d1d49d3151aaff604213c73931892e1724f3bfaca5165ddb0a5d9c538ade",
+      "bytes": 6699
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/FIRMWARE_PROTOCOL.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/FIRMWARE_PROTOCOL.md",
+      "sha256": "c42c22016c46e7024ec69062977b402582ac053f74113deb384a0e1edf7f3114",
+      "bytes": 52599
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/HAPTICS.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/HAPTICS.md",
+      "sha256": "fd174b3dc8dd79bdcfd84c32d8284a7ab59c3ae86679be0046e3496dffad2f5d",
+      "bytes": 4674
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/HID_REPORT_FORMAT.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/HID_REPORT_FORMAT.md",
+      "sha256": "a0281762904da58dba7df01fc5ad3005ed922fccab8f99b3369da46da431bbd1",
+      "bytes": 20013
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/METHODOLOGY.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/METHODOLOGY.md",
+      "sha256": "18cd670d8f20c5c587d7bc6f4e91d2d9b223ccdba65bdc96ff96716d7ca777e5",
+      "bytes": 10957
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "docs/SDL3_REFERENCE.md",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/docs/SDL3_REFERENCE.md",
+      "sha256": "8171d5d67590572429e8d748be3a241d598617f13530bbace7e648f7ee3fa039",
+      "bytes": 15899
+    },
+    {
+      "repository": "CouchTurtle/sc2-research",
+      "revision": "b46d5173501ec6814cb99c5769289ffce72f488d",
+      "path": "tools/attr_query.py",
+      "url": "https://raw.githubusercontent.com/CouchTurtle/sc2-research/b46d5173501ec6814cb99c5769289ffce72f488d/tools/attr_query.py",
+      "sha256": "1edaad26287c1ae7b6719129dc70ab6ace4aea96b18c7dd7fd5b45e07ea6b176",
+      "bytes": 10790
+    },
+    {
+      "repository": "iczero/steam-controller-stuff",
+      "revision": "83c46d7c5711f7497f83336526755fbf50d0c5af",
+      "path": "LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/iczero/steam-controller-stuff/83c46d7c5711f7497f83336526755fbf50d0c5af/LICENSE.txt",
+      "sha256": "e651e4c24a5871a0ce2b65fa64eadd3b63763787392f47a998548d7077a55bce",
+      "bytes": 1063
+    },
+    {
+      "repository": "iczero/steam-controller-stuff",
+      "revision": "83c46d7c5711f7497f83336526755fbf50d0c5af",
+      "path": "readme.md",
+      "url": "https://raw.githubusercontent.com/iczero/steam-controller-stuff/83c46d7c5711f7497f83336526755fbf50d0c5af/readme.md",
+      "sha256": "11f896a09b4b52132f4ce3ff975126549a1f6c493947e6e2edbe7af6d9e102e3",
+      "bytes": 6072
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "AGENTS.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/AGENTS.md",
+      "sha256": "4941fa7ccf6bb1edf3cfe9c457d60dd859364d1466e5a15904fb85b14b848e1e",
+      "bytes": 2136
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "ARCHITECTURE.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/ARCHITECTURE.md",
+      "sha256": "01fb003f5e7631d400325c31f66969519758f67b552f2408587e5319a80cce68",
+      "bytes": 24318
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "CODE_MAP.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/CODE_MAP.md",
+      "sha256": "cf04c8498fd536c63f65d8a324aae7bf7642f9cdcfeb2f9e2ea70fc182e31a27",
+      "bytes": 37243
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+      "bytes": 34523
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/README.md",
+      "sha256": "fae0c68778f0633b283996c92f8908c060384138a838e738b3e55d3e2609296b",
+      "bytes": 16815
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "ReversePuck/PUCK_CLONING.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/ReversePuck/PUCK_CLONING.md",
+      "sha256": "6ddc23a4b9f2c646c40d3c37ff57a56d534973b0f3dc700cdfa5e989a9db9d38",
+      "bytes": 1707
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "ReversePuck/README.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/ReversePuck/README.md",
+      "sha256": "a4f9905ebcf6030ff2df133ae93d2638ce584e261d1c0226b24d74adbf0087bf",
+      "bytes": 9426
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "docs/BUILD_AND_DEPLOY.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/docs/BUILD_AND_DEPLOY.md",
+      "sha256": "54c458cdf2927b81472e32f291d846bdb7505a085720733eb96b1de6dde45b45",
+      "bytes": 14538
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "docs/PROTOCOL.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/docs/PROTOCOL.md",
+      "sha256": "d52acf1d764bb914cd4240911bef9f9438ad95ac55c02a8c335df49f3a3644db",
+      "bytes": 21816
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "docs/TESTING_GUIDE.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/docs/TESTING_GUIDE.md",
+      "sha256": "dd5fce7df9a7617c0db2936c6a0647f749945094db6408e7dd67d1a59442a768",
+      "bytes": 3939
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "docs/WEBUSB_LINUX.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/docs/WEBUSB_LINUX.md",
+      "sha256": "b69ed216733eb0451408d39a05947422ddaff1011575b9fcf30be7bfc79e9c94",
+      "bytes": 2091
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "pairtui/README.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/pairtui/README.md",
+      "sha256": "bbf5a5261e0c338a1a737ca9bf73d12643db55bbdd36962f2ae5897bf652b0a4",
+      "bytes": 2655
+    },
+    {
+      "repository": "safijari/openpuck",
+      "revision": "2a1e54bc77fb194c6c55ee968bc594fd5f7672f4",
+      "path": "puck_sniffer/README.md",
+      "url": "https://raw.githubusercontent.com/safijari/openpuck/2a1e54bc77fb194c6c55ee968bc594fd5f7672f4/puck_sniffer/README.md",
+      "sha256": "97f9da34da7b5176439cd191e7eead74f93d4ef9c3833e430bfab7c0cfe678ef",
+      "bytes": 8317
+    },
+    {
+      "repository": "OpenSteamController/Ibex-Firmware",
+      "revision": "9b09dbd6da94800a7789d704ae2ccf2c274efc2a",
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/OpenSteamController/Ibex-Firmware/9b09dbd6da94800a7789d704ae2ccf2c274efc2a/README.md",
+      "sha256": "16d9e518125f83220095cf6862c5c199315ff5b074e45fe488a1b832d55c270b",
+      "bytes": 4353
+    },
+    {
+      "repository": "libsdl-org/SDL",
+      "revision": "0ccb76ae876e3e893d179828f16f0933326bf084",
+      "path": "LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/libsdl-org/SDL/0ccb76ae876e3e893d179828f16f0933326bf084/LICENSE.txt",
+      "sha256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd",
+      "bytes": 884
+    },
+    {
+      "repository": "libsdl-org/SDL",
+      "revision": "0ccb76ae876e3e893d179828f16f0933326bf084",
+      "path": "src/joystick/hidapi/SDL_hidapi_steam_triton.c",
+      "url": "https://raw.githubusercontent.com/libsdl-org/SDL/0ccb76ae876e3e893d179828f16f0933326bf084/src/joystick/hidapi/SDL_hidapi_steam_triton.c",
+      "sha256": "11dedf48afbec74ee373538618fe123dc66cc854c07419cdb8d559fc063074c4",
+      "bytes": 29240
+    },
+    {
+      "repository": "libsdl-org/SDL",
+      "revision": "0ccb76ae876e3e893d179828f16f0933326bf084",
+      "path": "src/joystick/hidapi/steam/controller_constants.h",
+      "url": "https://raw.githubusercontent.com/libsdl-org/SDL/0ccb76ae876e3e893d179828f16f0933326bf084/src/joystick/hidapi/steam/controller_constants.h",
+      "sha256": "d6d4bf60e9f8d47d9a1371aa0390cd0adfff95e596d15111a5eaf6ad2c7bc761",
+      "bytes": 16754
+    },
+    {
+      "repository": "libsdl-org/SDL",
+      "revision": "0ccb76ae876e3e893d179828f16f0933326bf084",
+      "path": "src/joystick/hidapi/steam/controller_structs.h",
+      "url": "https://raw.githubusercontent.com/libsdl-org/SDL/0ccb76ae876e3e893d179828f16f0933326bf084/src/joystick/hidapi/steam/controller_structs.h",
+      "sha256": "6217267bfa7e2b446edd6c45ac78e7603ac937960e7585831423d94d2a10c3b8",
+      "bytes": 16347
+    }
+  ]
+}

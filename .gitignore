@@ -1,0 +1,16 @@
+.vscode/
+
+__pycache__/
+captures/
+build/
+dist/
+
+# Research notes and provenance are publishable. The downloaded upstream
+# snapshots and firmware artifacts are local working material only; keep them
+# out of commits because they are third-party material with separate license
+# and redistribution terms.
+research/sources/
+research/*.fw
+research/ibex-firmware-index.json
+research/*-tree.json
+research/*-repo.json
