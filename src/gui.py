@@ -19,7 +19,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import ttk
 
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 
 class App:
     """Build the window and translate worker events into visible UI state."""
