@@ -16,6 +16,10 @@ FIRMWARE_SUPPORT = {
         'level': HARDWARE_TESTED,
         'note': 'Calibration and byte-for-byte rollback tested on hardware (2026-10-16).',
     },
+    0x6ACFF323: {
+        'level': HARDWARE_TESTED,
+        'note': 'Calibration and byte-for-byte rollback tested on hardware (2026-11-01).',
+    },
     0x6AA43B55: {
         'level': REVIEWED,
         'note': 'Calibration and setting handlers reviewed; hardware workflow untested.',
