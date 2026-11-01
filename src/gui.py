@@ -9,6 +9,7 @@ import webbrowser
 from .calibration_store import backup_calibration_issues, validate_backup
 from .firmware_support import HARDWARE_TESTED, REVIEWED, firmware_support
 from .gui_support import CAPTURES, PATHS, asset_path, display_path, encode_manual_record
+from .gui_dpi import DisplayScale, enable_dpi_awareness
 from .gui_theme import Theme
 from .gui_widgets import HistoryPlot, StickView
 from .gui_worker import ControllerWorker
@@ -19,12 +20,13 @@ import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import ttk
 
-VERSION = '1.1.3'
+VERSION = '1.2.0'
 
 class App:
     """Build the window and translate worker events into visible UI state."""
 
     def __init__(self, root):
+        px = DisplayScale(root).pixels
         self.tk, self.ttk, self.root = tk, ttk, root
         self.worker = ControllerWorker()
         self.entries, self.record_types = {}, {}
@@ -44,8 +46,8 @@ class App:
             # Keep the GUI usable if a development checkout is missing its assets.
             pass
         root.title(tr('app.title'))
-        root.geometry(f'{Theme.WINDOW_WIDTH}x{Theme.WINDOW_HEIGHT}')
-        root.minsize(Theme.WINDOW_WIDTH, Theme.WINDOW_HEIGHT)
+        root.geometry(f'{px(Theme.WINDOW_WIDTH)}x{px(Theme.WINDOW_HEIGHT)}')
+        root.minsize(px(Theme.WINDOW_WIDTH), px(Theme.WINDOW_HEIGHT))
         style = ttk.Style()
         if 'vista' in style.theme_names():
             style.theme_use('vista')
@@ -53,16 +55,17 @@ class App:
         # Apply the selected Windows UI font to every ttk control, including
         # buttons, entries, frames, and labels without an explicit font.
         style.configure('.', font=ui_font(9))
-        outer = ttk.Frame(root, padding=16,)
+        outer = ttk.Frame(root, padding=px(16),)
         outer.pack(fill='both', expand=True)
         title_frame = ttk.Frame(outer)
         title_frame.pack(fill='x')
         ttk.Label(title_frame, text=tr('app.title'),
                   font=ui_font(18, 'bold')).pack(side='left', anchor='w')
         ttk.Label(title_frame, text=(f'v{VERSION}')).pack(
-            side='left', anchor='s', padx=(8, 0), pady=(0, 0 if current_language() == 'zh-CN' else 3))
+            side='left', anchor='s', padx=px((8, 0)),
+            pady=px((0, 0 if current_language() == 'zh-CN' else 3)))
         self.connection = ttk.Label(outer, text=tr('connection.connecting'))
-        self.connection.pack(anchor='w', pady=(2, 12))
+        self.connection.pack(anchor='w', pady=px((2, 12)))
 
         # Top row: two live stick views followed by the editable raw record.
         live = ttk.Frame(outer)
@@ -71,30 +74,30 @@ class App:
         sticks.pack(side='left')
         self.left = StickView(sticks, tr('stick.left_title'))
         self.right = StickView(sticks, tr('stick.right_title'))
-        self.left.frame.pack(side='left', padx=(0, 6))
-        self.right.frame.pack(side='left', padx=(6, 0))
+        self.left.frame.pack(side='left', padx=px((0, 6)))
+        self.right.frame.pack(side='left', padx=px((6, 0)))
 
-        editor = ttk.LabelFrame(outer, text=tr('editor.title'), padding=10)
-        editor.pack(in_=live, side='left', fill='y', padx=(14, 0))
+        editor = ttk.LabelFrame(outer, text=tr('editor.title'), padding=px(10))
+        editor.pack(in_=live, side='left', fill='y', padx=px((14, 0)))
         headers = ('editor.axis', 'editor.minimum', 'editor.center_min',
                    'editor.center_max', 'editor.maximum')
         for column, label_key in enumerate(headers):
             ttk.Label(editor, text=tr(label_key), font=ui_font(9, 'bold')).grid(
-                row=0, column=column, padx=5, pady=(0, 5), sticky='w')
+                row=0, column=column, padx=px(5), pady=px((0, 5)), sticky='w')
         rows = (('axis.left_x', 'cal/joy_l', 'x'), ('axis.left_y', 'cal/joy_l', 'y'),
                 ('axis.right_x', 'cal/joy_r', 'x'), ('axis.right_y', 'cal/joy_r', 'y'))
         for row, (label_key, path, axis) in enumerate(rows, 1):
-            ttk.Label(editor, text=tr(label_key)).grid(row=row, column=0, padx=5, pady=3, sticky='w')
+            ttk.Label(editor, text=tr(label_key)).grid(row=row, column=0, padx=px(5), pady=px(3), sticky='w')
             for column, suffix in enumerate(('min', 'center_min', 'center_max', 'max'), 1):
                 entry = ttk.Entry(editor, width=9, justify='right')
-                entry.grid(row=row, column=column, padx=5, pady=3)
+                entry.grid(row=row, column=column, padx=px(5), pady=px(3))
                 # Bind each box itself so only the value under the pointer moves.
                 entry.bind('<MouseWheel>', self.nudge_raw_entry)
                 self.entries[(path, axis, suffix)] = entry
 
         # The graph spans the same left/right bounds as the complete top row.
         self.history_plot = HistoryPlot(outer)
-        self.history_plot.frame.pack(fill='x', pady=(12, 12))
+        self.history_plot.frame.pack(fill='x', pady=px((12, 12)))
 
         # Actions remain disabled while the worker owns a long controller operation.
         buttons = ttk.Frame(outer)
@@ -106,20 +109,20 @@ class App:
         self.auto_button = ttk.Button(buttons, text=tr('button.auto'), command=self.auto_start)
         for widget in (self.read_button, self.stage_button, self.save_button,
                        self.restore_button, self.auto_button):
-            widget.pack(side='left', padx=(0, 7))
+            widget.pack(side='left', padx=px((0, 7)))
 
         self.status = tk.StringVar(value=tr('status.starting'))
         self.instruction = tk.Label(outer, textvariable=self.status, anchor='w', justify='left',
-            wraplength=715, bg=Theme.STATUS_TONES['hold'][0], fg=Theme.STATUS_TONES['hold'][1],
-            font=ui_font(10, 'bold'), padx=10, pady=8, relief='solid', borderwidth=1)
-        self.instruction.pack(fill='x', pady=(12, 3))
-        self.backup = ttk.Label(outer, text='', foreground=Theme.MUTED_TEXT, wraplength=735)
+            wraplength=px(715), bg=Theme.STATUS_TONES['hold'][0], fg=Theme.STATUS_TONES['hold'][1],
+            font=ui_font(10, 'bold'), padx=px(10), pady=px(8), relief='solid', borderwidth=px(1))
+        self.instruction.pack(fill='x', pady=px((12, 3)))
+        self.backup = ttk.Label(outer, text='', foreground=Theme.MUTED_TEXT, wraplength=px(735))
         self.backup.pack(anchor='w')
         ttk.Label(outer, text=tr('status.temporary_explanation'),
-                  foreground=Theme.MUTED_TEXT, wraplength=735).pack(anchor='w', pady=(2, 0))
+                  foreground=Theme.MUTED_TEXT, wraplength=px(735)).pack(anchor='w', pady=px((2, 0)))
         # Keep project support at the bottom without making the main controls wider.
         footer = ttk.Frame(outer)
-        footer.pack(anchor='w', pady=(2, 0))
+        footer.pack(anchor='w', pady=px((2, 0)))
         author = ttk.Label(footer, text=tr('footer.author'), foreground=Theme.HYPERLINK, cursor='hand2')
         author.pack(side='left')
         author.bind('<Button-1>', lambda _event: webbrowser.open(tr('footer.author_link')))
@@ -133,6 +136,11 @@ class App:
         repository.pack(side='left')
         issues.bind('<Button-1>', lambda _event: webbrowser.open(ISSUES_URL))
         repository.bind('<Button-1>', lambda _event: webbrowser.open(REPOSITORY_URL))
+        root.update_idletasks()
+        width = max(px(Theme.WINDOW_WIDTH), root.winfo_reqwidth())
+        height = max(px(Theme.WINDOW_HEIGHT), root.winfo_reqheight())
+        root.geometry(f'{width}x{height}')
+        root.minsize(width, height)
         self.set_enabled(False)
         self.worker.start()
         root.after(30, self.poll)
@@ -444,6 +452,7 @@ def main(args=None):
     import tkinter as tk
     options = parse_args(args)
     configure(options.language)
+    enable_dpi_awareness()
     root = tk.Tk()
     App(root)
     root.mainloop()

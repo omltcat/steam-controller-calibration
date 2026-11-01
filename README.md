@@ -10,7 +10,10 @@ For reasons only known to God and Gabe, Valve does not provide a way to calibrat
 This is the "**Fine, I'll do it myself**" solution.  
 It offers both auto calibration and manual input of calibration values if you are super OCD about getting the perfect centering.
 
-This utility is usable as of September 2026. If future firmware updates break it, please let me know by opening an issue (or pull request). I will try to fix it if possible, unless Valve decides to lock down the controller firmware and make it impossible to calibrate by third-party software.
+This utility is periodically updated for new firmware versions. If future firmware updates break it, please let me know by opening an issue (or pull request). I will try to fix it if possible, unless Valve decides to lock down the controller firmware and make it impossible to calibrate by third-party software.
+
+## How It Works
+Valve does offer a calibration interface in the controller firmware, but it is not exposed to the user. This tool uses a reverse-engineered protocol to access the calibration interface and read/write calibration data. The calibration data is stored directly onboard the controller, so it persists across reboots, firmware updates and different computers.
 
 ## Usage
 
@@ -26,7 +29,7 @@ Please help test or report firmware versions that are marked as "untested" or "u
 Download the latest from [Releases](releases).   
 Windows Security may warn you about an unknown publisher. Click "More info" and then "Run anyway". Or you may download and review the source code yourself, and run it with Python.
 
-### Python script
+### Python Script
 
 ```bash
 git clone https://github.com/omltcat/steam-controller-calibration.git
@@ -45,7 +48,7 @@ python -m src.main backup --path auto --output captures/my-backup.json
 python -m src.main restore --path auto --backup captures/my-backup.json
 ```
 
-## Further reading
+## Further Reading
 
 The technical background, reverse-engineering process, firmware analysis, and
 source provenance are in [Research](research/README.md).
@@ -63,7 +66,10 @@ source provenance are in [Research](research/README.md).
 这是我自己动手丰衣足食的解决方案。
 本工具提供自动校准和手动输入校准值的功能，如果你是追求完美居中的强迫症患者，可以手动微调精确的校准值。
 
-本工具在2026年9月可用。如果未来的固件更新把它搞坏了，请提交Issue告诉我（或Pull Request），也可以[B站私信我](https://space.bilibili.com/257463461)，我会尝试修复。除非Valve决定锁死手柄固件，使第三方软件无法校准。
+本工具会定期更新以支持新的固件版本。如果未来的固件更新把它搞坏了，请提交Issue告诉我（或Pull Request），也可以[B站私信我](https://space.bilibili.com/257463461)，我会尝试修复。除非Valve决定锁死手柄固件，使第三方软件无法校准。
+
+## 工作原理
+Valve在手柄固件中提供了校准接口，但没有暴露给用户。本工具使用逆向工程的协议访问校准接口，读取和写入校准数据。校准数据直接存储在手柄上，因此在重启、固件更新和不同电脑之间都能保持。
 
 ## 使用方法
 

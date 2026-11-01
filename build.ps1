@@ -58,6 +58,7 @@ $Arguments = @(
     $BundleFlag,
     '--name', 'SteamControllerCalibration',
     '--icon', $IconPath,
+    '--manifest', (Join-Path $ProjectRoot 'assets\gui.manifest'),
     '--paths', $ProjectRoot,
     '--collect-all', 'sdl3',
     '--add-data', "$(Join-Path $ProjectRoot 'assets');assets",

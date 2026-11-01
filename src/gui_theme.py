@@ -27,6 +27,6 @@ class Theme:
         'error': ('#fee2e2', '#991b1b'),
     }
 
-    WINDOW_WIDTH = 850
-    WINDOW_HEIGHT = 765
+    WINDOW_WIDTH = 600
+    WINDOW_HEIGHT = 600
 
