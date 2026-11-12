@@ -2,6 +2,7 @@
 from datetime import datetime
 from pathlib import Path
 import sys
+import os
 
 from .protocol import calibration_issues, decode_calibration, encode_calibration
 
@@ -12,9 +13,22 @@ def _runtime_root():
     return Path(__file__).resolve().parent.parent
 
 
-ROOT = _runtime_root()
-CAPTURES = ROOT / 'captures'
+def _user_data_dir():
+    """Return a writable, platform-appropriate user data directory."""
+    if sys.platform == "win32":
+        base = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local"))
+    else:
+        base = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
 
+    return base / "steam-controller-calibration"
+    
+ROOT = _runtime_root()
+
+DATA_DIR = _user_data_dir()
+CAPTURES = DATA_DIR / "captures"
+
+# Ensure the directory exists before saving captures.
+CAPTURES.mkdir(parents=True, exist_ok=True)
 
 def asset_path(name):
     """Resolve a bundled asset in development and in a frozen PyInstaller app."""
