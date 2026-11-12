@@ -1,0 +1,144 @@
+name: Build Linux AppImage
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3-tk \
+            libudev-dev \
+            libusb-1.0-0-dev \
+            libfuse2 \
+            desktop-file-utils \
+            wget \
+            file
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-build.txt
+          
+      - name: Download SDL3 binaries
+        run: |
+          python -c "import sdl3; print('SDL3 imported successfully')"
+
+          SDL3_BIN=$(python -c \
+            "import sdl3, pathlib; print(pathlib.Path(sdl3.__file__).parent / 'bin')")
+
+          echo "SDL3 binary directory: $SDL3_BIN"
+          ls -lah "$SDL3_BIN"
+
+          test -f "$SDL3_BIN/libSDL3.so"
+          
+      - name: Build with PyInstaller
+        run: |
+          python -m PyInstaller \
+            --noconfirm \
+            --clean \
+            --onedir \
+            --name SteamControllerCalibration \
+            --collect-all sdl3 \
+            --collect-binaries sdl3 \
+            --collect-data sdl3 \
+            --add-data "$GITHUB_WORKSPACE/assets:assets" \
+            --distpath dist \
+            --workpath build/pyinstaller \
+            --specpath . \
+            src/gui_entry.py
+
+      - name: Create AppDir
+        run: |
+          mkdir -p AppDir/usr/bin
+          mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps
+
+          cp -a dist/SteamControllerCalibration \
+            AppDir/usr/bin/
+
+          cat > AppDir/AppRun <<'EOF'
+          #!/bin/sh
+          HERE="$(dirname "$(readlink -f "$0")")"
+          export PATH="$HERE/usr/bin:$PATH"
+          exec "$HERE/usr/bin/SteamControllerCalibration/SteamControllerCalibration" "$@"
+          EOF
+
+          chmod +x AppDir/AppRun
+
+          cat > AppDir/steam-controller-calibration.desktop <<'EOF'
+          [Desktop Entry]
+          Type=Application
+          Name=Steam Controller Calibration
+          Comment=Steam Controller Stick Calibration Utility
+          Exec=SteamControllerCalibration
+          Icon=steam-controller-calibration
+          Categories=Utility;
+          Terminal=false
+          EOF
+
+          # Simple scalable application icon
+          cat > AppDir/steam-controller-calibration.svg <<'EOF'
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+            <rect width="128" height="128" rx="24" fill="#252525"/>
+            <circle cx="40" cy="64" r="20" fill="#ddd"/>
+            <circle cx="88" cy="64" r="20" fill="#ddd"/>
+            <path d="M40 54v20M30 64h20" stroke="#252525" stroke-width="6"/>
+            <circle cx="88" cy="64" r="7" fill="#252525"/>
+          </svg>
+          EOF
+
+          cp AppDir/steam-controller-calibration.svg \
+            AppDir/usr/share/icons/hicolor/scalable/apps/
+
+          chmod +x AppDir/usr/bin/SteamControllerCalibration/SteamControllerCalibration
+
+          desktop-file-validate AppDir/steam-controller-calibration.desktop
+
+      - name: Download appimagetool
+        run: |
+          wget -q \
+            https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage \
+            -O appimagetool
+          chmod +x appimagetool
+
+      - name: Build AppImage
+        run: |
+          ARCH=x86_64 \
+          APPIMAGE_EXTRACT_AND_RUN=1 \
+          ./appimagetool AppDir \
+            SteamControllerCalibration-x86_64.AppImage
+
+          chmod +x SteamControllerCalibration-x86_64.AppImage
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SteamControllerCalibration-AppImage
+          path: SteamControllerCalibration-x86_64.AppImage
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: SteamControllerCalibration-x86_64.AppImage
+          generate_release_notes: true
